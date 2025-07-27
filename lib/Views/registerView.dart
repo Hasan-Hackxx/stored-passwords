@@ -79,6 +79,17 @@ class _RegisterviewState extends State<Registerview> {
               },
               child: Text('Register', style: TextStyle(fontSize: 20)),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/login/', (context) => false);
+              },
+              child: Text(
+                'already register?login!',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ],
         ),
       ),

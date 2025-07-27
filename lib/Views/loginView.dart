@@ -77,6 +77,14 @@ class _LoginviewState extends State<Loginview> {
               },
               child: Text('login', style: TextStyle(fontSize: 20)),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/Register/', (context) => false);
+              },
+              child: Text('not sing up yet!.', style: TextStyle(fontSize: 20)),
+            ),
           ],
         ),
       ),
