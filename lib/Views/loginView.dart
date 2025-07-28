@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:my_passwords/Routes.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -79,9 +80,10 @@ class _LoginviewState extends State<Loginview> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(
-                  context,
-                ).pushNamedAndRemoveUntil('/Register/', (context) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  registerViewRoute,
+                  (context) => false,
+                );
               },
               child: Text('not sing up yet!.', style: TextStyle(fontSize: 20)),
             ),
