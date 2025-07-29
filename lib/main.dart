@@ -5,6 +5,7 @@ import 'package:my_passwords/Views/VerifyEmailView.dart';
 import 'package:my_passwords/Views/loginView.dart';
 import 'package:my_passwords/Views/passwordsVeiw.dart';
 import 'package:my_passwords/Views/registerView.dart';
+import 'package:my_passwords/Views/resetpasswordView.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
         registerViewRoute: (context) => Registerview(),
         verifyViewRoute: (context) => Verifyemailview(),
         passwordsViewRoute: (context) => HomePage(),
+        resetpasswordViewRoute: (context) => Resetpasswordview(),
       },
     );
   }

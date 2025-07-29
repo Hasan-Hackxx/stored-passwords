@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_passwords/Dailogs/logoutDailog.dart';
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/firebase_options.dart';
 
@@ -16,15 +17,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notes page'),
+        title: const Text('Passwords page'),
         backgroundColor: Colors.blue,
         actions: [
           IconButton(
             onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.of(
-                context,
-              ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);
+              final shouldlogout = await showlogoutDailog(context);
+              if (shouldlogout) {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);
+              }
             },
             icon: Icon(Icons.logout, size: 30),
           ),

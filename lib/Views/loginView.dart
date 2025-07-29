@@ -93,6 +93,18 @@ class _LoginviewState extends State<Loginview> {
               },
               child: Text('not sing up yet!.', style: TextStyle(fontSize: 20)),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  resetpasswordViewRoute,
+                  (context) => false,
+                );
+              },
+              child: const Text(
+                'Forget password?',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ],
         ),
       ),
