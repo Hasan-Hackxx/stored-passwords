@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/Views/VerifyEmailView.dart';
 import 'package:my_passwords/Views/loginView.dart';
-import 'package:my_passwords/Views/notesVeiw.dart';
+import 'package:my_passwords/Views/passwordsVeiw.dart';
 import 'package:my_passwords/Views/registerView.dart';
 
 void main() async {
@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
         loginViewRoute: (context) => Loginview(),
         registerViewRoute: (context) => Registerview(),
         verifyViewRoute: (context) => Verifyemailview(),
-        noteViewRoute: (context) => HomePage(),
+        passwordsViewRoute: (context) => HomePage(),
       },
     );
   }

@@ -1,0 +1,1 @@
+enum MenwAction { logout }

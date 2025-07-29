@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:my_passwords/Dailogs/errorDailog.dart';
 import 'package:my_passwords/Routes.dart';
 
 class Loginview extends StatefulWidget {
@@ -66,13 +67,18 @@ class _LoginviewState extends State<Loginview> {
                     email: email,
                     password: password,
                   );
+
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    passwordsViewRoute,
+                    (context) => false,
+                  );
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'invalid-credential') {
-                    print('invalid credential');
+                    await showerrorDailog(context, 'invalid credential');
                   } else if (e.code == 'invalid-email') {
-                    print('invalid email');
+                    await showerrorDailog(context, 'invalid email');
                   } else {
-                    print('Authentication error');
+                    await showerrorDailog(context, 'authentication error');
                   }
                 }
               },

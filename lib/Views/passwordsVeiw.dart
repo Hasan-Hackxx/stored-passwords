@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_passwords/Views/VerifyEmailView.dart';
+import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/firebase_options.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +18,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Notes page'),
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);
+            },
+            icon: Icon(Icons.logout, size: 30),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -30,7 +41,7 @@ class _HomePageState extends State<HomePage> {
               if (user?.emailVerified ?? false) {
                 print('your are verifiaid');
               } else {
-                return const Verifyemailview();
+                // return const Verifyemailview();
               }
               return const Text('done');
             default:
