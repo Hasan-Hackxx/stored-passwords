@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:my_passwords/Dailogs/errorDailog.dart';
 import 'package:my_passwords/Routes.dart';
+import 'package:my_passwords/auth/auth_exceptions.dart';
+import 'package:my_passwords/auth/auth_service.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -63,7 +63,7 @@ class _LoginviewState extends State<Loginview> {
                 try {
                   final email = _email.text;
                   final password = _password.text;
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                  await AuthService.firebase().provider.signin(
                     email: email,
                     password: password,
                   );
@@ -72,14 +72,14 @@ class _LoginviewState extends State<Loginview> {
                     passwordsViewRoute,
                     (context) => false,
                   );
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'invalid-credential') {
-                    await showerrorDailog(context, 'invalid credential');
-                  } else if (e.code == 'invalid-email') {
-                    await showerrorDailog(context, 'invalid email');
-                  } else {
-                    await showerrorDailog(context, 'authentication error');
-                  }
+                } on UserNoteFoundException {
+                  await showerrorDailog(context, 'Invalid credential');
+                } on WrongPasswordException {
+                  await showerrorDailog(context, 'Invalid credential');
+                } on InvalidEmailException {
+                  await showerrorDailog(context, 'Invalid email');
+                } on GenericException {
+                  await showerrorDailog(context, 'Authentication error');
                 }
               },
               child: Text('login', style: TextStyle(fontSize: 20)),

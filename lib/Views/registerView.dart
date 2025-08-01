@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_passwords/Dailogs/errorDailog.dart';
 import 'package:my_passwords/Routes.dart';
+import 'package:my_passwords/auth/auth_exceptions.dart';
+import 'package:my_passwords/auth/auth_service.dart';
 
 class Registerview extends StatefulWidget {
   const Registerview({super.key});
@@ -63,20 +64,18 @@ class _RegisterviewState extends State<Registerview> {
                 try {
                   final email = _email.text;
                   final password = _password.text;
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  await AuthService.firebase().provider.createuser(
                     email: email,
                     password: password,
                   );
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'invalid-email') {
-                    await showerrorDailog(context, 'invalid email');
-                  } else if (e.code == 'weak-password') {
-                    await showerrorDailog(context, 'weak password');
-                  } else if (e.code == 'email-already-in-use') {
-                    await showerrorDailog(context, 'email already in use');
-                  } else {
-                    await showerrorDailog(context, 'authintcation error');
-                  }
+                } on InvalidEmailException {
+                  await showerrorDailog(context, 'invalid email');
+                } on WeakPasswordException {
+                  await showerrorDailog(context, 'weak password');
+                } on EmailAlreadyInUseException {
+                  await showerrorDailog(context, 'email already in use');
+                } on GenericException {
+                  await showerrorDailog(context, 'authintcation error');
                 }
               },
               child: Text('Register', style: TextStyle(fontSize: 20)),

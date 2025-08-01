@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/Views/VerifyEmailView.dart';
@@ -6,10 +5,11 @@ import 'package:my_passwords/Views/loginView.dart';
 import 'package:my_passwords/Views/passwordsVeiw.dart';
 import 'package:my_passwords/Views/registerView.dart';
 import 'package:my_passwords/Views/resetpasswordView.dart';
+import 'package:my_passwords/auth/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await AuthService.firebase().provider.initilaizeup();
   runApp(const MyApp());
 }
 

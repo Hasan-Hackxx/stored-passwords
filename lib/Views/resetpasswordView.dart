@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
+import 'package:my_passwords/Dailogs/errorDailog.dart';
 import 'package:my_passwords/Routes.dart';
+import 'package:my_passwords/auth/auth_exceptions.dart';
+import 'package:my_passwords/auth/auth_service.dart';
 
 class Resetpasswordview extends StatefulWidget {
   const Resetpasswordview({super.key});
@@ -35,26 +36,29 @@ class _ResetpasswordviewState extends State<Resetpasswordview> {
       body: Column(
         children: [
           const Text(
-            'please enter your email to send reset password link to your email',
+            'please enter your email to send reset password linl to your email',
             style: TextStyle(fontSize: 20),
           ),
-          SizedBox(height: 20),
 
           TextField(
             controller: _email,
-
-            decoration: InputDecoration(hintText: 'your email'),
+            decoration: InputDecoration(hintText: 'your emai...'),
           ),
 
           TextButton(
             onPressed: () async {
-              final email = _email.text;
-              await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+              try {
+                final email = _email.text;
+                await AuthService.firebase().provider.sendResetpassword(
+                  toEmail: email,
+                );
+              } on InvalidEmailException {
+                await showerrorDailog(context, 'invalid email');
+              } on UserNoteFoundException {
+                await showerrorDailog(context, 'user not found');
+              }
             },
-            child: const Text(
-              'Send Resetpassword',
-              style: TextStyle(fontSize: 15),
-            ),
+            child: Text('send reset passord', style: TextStyle(fontSize: 15)),
           ),
           TextButton(
             onPressed: () {
@@ -62,7 +66,7 @@ class _ResetpasswordviewState extends State<Resetpasswordview> {
                 context,
               ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);
             },
-            child: const Text('change my mind', style: TextStyle(fontSize: 15)),
+            child: Text('change my mind', style: TextStyle(fontSize: 15)),
           ),
         ],
       ),
