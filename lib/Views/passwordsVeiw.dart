@@ -22,6 +22,12 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () async {
+              Navigator.of(context).pushNamed(createPassordView);
+            },
+            icon: Icon(Icons.add),
+          ),
+          IconButton(
+            onPressed: () async {
               final shouldlogout = await showlogoutDailog(context);
               if (shouldlogout) {
                 await FirebaseAuth.instance.signOut();

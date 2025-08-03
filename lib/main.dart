@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/Views/VerifyEmailView.dart';
+import 'package:my_passwords/Views/createorupdatepasswordView.dart';
 import 'package:my_passwords/Views/loginView.dart';
 import 'package:my_passwords/Views/passwordsVeiw.dart';
 import 'package:my_passwords/Views/registerView.dart';
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         verifyViewRoute: (context) => Verifyemailview(),
         passwordsViewRoute: (context) => HomePage(),
         resetpasswordViewRoute: (context) => Resetpasswordview(),
+        createPassordView: (context) => Createorupdatepasswordview(),
       },
     );
   }
