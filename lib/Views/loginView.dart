@@ -67,11 +67,15 @@ class _LoginviewState extends State<Loginview> {
                     email: email,
                     password: password,
                   );
-
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    passwordsViewRoute,
-                    (context) => false,
-                  );
+                  final user = AuthService.firebase().currentuser;
+                  if (user?.isemailVerifaied ?? false) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      passwordsViewRoute,
+                      (context) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamed(verifyViewRoute);
+                  }
                 } on UserNoteFoundException {
                   await showerrorDailog(context, 'Invalid credential');
                 } on WrongPasswordException {

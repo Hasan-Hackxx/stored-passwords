@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_passwords/auth/auth_service.dart';
 
@@ -12,33 +11,39 @@ class Verifyemailview extends StatefulWidget {
 class _VerifyemailviewState extends State<Verifyemailview> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          const Text(
-            'click buttoun below to send Verification to your email...',
-            style: TextStyle(fontSize: 20),
-          ),
-
-          TextButton(
-            onPressed: () async {
-              final user = AuthService.firebase().provider.currentuser;
-
-              await AuthService.firebase().provider.sendEmailVerivication();
-            },
-            child: const Text(
-              'send email verification...',
-              style: TextStyle(fontSize: 15),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Verify Email:'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            const Text(
+              'click buttoun below to send Verification to your email...',
+              style: TextStyle(fontSize: 20),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/login/');
-            },
-            child: const Text('restart'),
-          ),
-        ],
+
+            TextButton(
+              onPressed: () async {
+                AuthService.firebase().provider.currentuser;
+
+                await AuthService.firebase().provider.sendEmailVerivication();
+              },
+              child: const Text(
+                'send email verification...',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/login/');
+              },
+              child: const Text('restart'),
+            ),
+          ],
+        ),
       ),
     );
   }

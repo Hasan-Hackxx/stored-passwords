@@ -68,6 +68,10 @@ class _RegisterviewState extends State<Registerview> {
                     email: email,
                     password: password,
                   );
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    verifyViewRoute,
+                    (context) => false,
+                  );
                 } on InvalidEmailException {
                   await showerrorDailog(context, 'invalid email');
                 } on WeakPasswordException {

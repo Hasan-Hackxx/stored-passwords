@@ -1,18 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_passwords/Dailogs/logoutDailog.dart';
 import 'package:my_passwords/Routes.dart';
-import 'package:my_passwords/firebase_options.dart';
+import 'package:my_passwords/Views/password_list_view.dart';
+import 'package:my_passwords/auth/auth_service.dart';
+import 'package:my_passwords/cloud_Service/cloud_firestore_service.dart';
+import 'package:my_passwords/cloud_Service/cloud_password.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PasswordView extends StatefulWidget {
+  const PasswordView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PasswordView> createState() => _PasswordViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PasswordViewState extends State<PasswordView> {
+  late final CloudFirestoreService _service;
+  String get userEmail => AuthService.firebase().currentuser!.id;
+
+  @override
+  void initState() {
+    _service = CloudFirestoreService();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,20 +51,30 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, asyncSnapshot) {
-          switch (asyncSnapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              if (user?.emailVerified ?? false) {
-                print('your are verifiaid');
+      body: StreamBuilder(
+        stream: _service.allpasswords(ownerUserId: userEmail),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              if (snapshot.hasData) {
+                final allpasswords = snapshot.data as Iterable<CloudPassword>;
+                return PasswordListView(
+                  passwords: allpasswords,
+                  onDelatepass: (password) async {
+                    await _service.deletePassword(
+                      doucmentId: password.doucmentId,
+                    );
+                  },
+                  ontap: (password) {
+                    Navigator.of(
+                      context,
+                    ).pushNamed(createPassordView, arguments: password);
+                  },
+                );
               } else {
-                // return const Verifyemailview();
+                return const CircularProgressIndicator();
               }
-              return const Text('done');
             default:
               return const CircularProgressIndicator();
           }
