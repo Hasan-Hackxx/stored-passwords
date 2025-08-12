@@ -14,12 +14,17 @@ class CloudFirestoreService {
     }
   }
 
-  Future<void> deleteAllpasswords({
-    required String doucmentId,
-    required String ownerUserId,
-  }) async {
+  Future<void> deleteAllpasswords({required String ownerUserId}) async {
     try {
-      await passwords.doc(ownerUserId).delete();
+      final query = await passwords
+          .where(textFieldOwnerId, isEqualTo: ownerUserId)
+          .get();
+      final batch = FirebaseFirestore.instance.batch();
+
+      for (var doc in query.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
     } catch (e) {
       throw CouldntDeleteAllPasswordException();
     }
@@ -28,9 +33,13 @@ class CloudFirestoreService {
   Future<void> updatepassword({
     required String doucmentId,
     required String text,
+    required String? type,
   }) async {
     try {
-      await passwords.doc(doucmentId).update({textpassword: text});
+      await passwords.doc(doucmentId).update({
+        textpassword: text,
+        typepassword: type,
+      });
     } catch (e) {
       throw CouldntUpdatePasswordException();
     }
@@ -39,6 +48,7 @@ class CloudFirestoreService {
   Future<CloudPassword> savePassword({required String ownerUserId}) async {
     final doucment = await passwords.add({
       textFieldOwnerId: ownerUserId,
+      typepassword: '',
       textpassword: '',
     });
 
@@ -46,6 +56,7 @@ class CloudFirestoreService {
     return CloudPassword(
       doucmentId: getdoucment.id,
       ownerUserId: ownerUserId,
+      type: '',
       text: '',
     );
   }

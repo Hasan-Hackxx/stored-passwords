@@ -7,6 +7,7 @@ import 'package:my_passwords/Views/loginView.dart';
 import 'package:my_passwords/Views/passwordsVeiw.dart';
 import 'package:my_passwords/Views/registerView.dart';
 import 'package:my_passwords/Views/resetpasswordView.dart';
+
 import 'package:my_passwords/auth/auth_service.dart';
 import 'package:my_passwords/firebase_options.dart';
 

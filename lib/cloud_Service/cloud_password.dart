@@ -7,16 +7,19 @@ class CloudPassword {
   final String doucmentId;
   final String ownerUserId;
   final String text;
+  final String type;
 
   const CloudPassword({
     required this.doucmentId,
     required this.ownerUserId,
     required this.text,
+    required this.type,
   });
 
   CloudPassword.fromsnapshot(
     QueryDocumentSnapshot<Map<String, dynamic>> snapshot,
   ) : doucmentId = snapshot.id,
       ownerUserId = snapshot.data()[textFieldOwnerId],
-      text = snapshot.data()[textpassword] as String;
+      text = snapshot.data()[textpassword] as String,
+      type = snapshot.data()[typepassword] as String;
 }

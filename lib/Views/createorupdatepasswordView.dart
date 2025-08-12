@@ -1,4 +1,7 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:my_passwords/Routes.dart';
+import 'package:my_passwords/Views/Ui_create_password.dart';
 import 'package:my_passwords/auth/auth_service.dart';
 import 'package:my_passwords/cloud_Service/cloud_firestore_service.dart';
 import 'package:my_passwords/cloud_Service/cloud_password.dart';
@@ -15,13 +18,18 @@ class Createorupdatepasswordview extends StatefulWidget {
 class _CreateorupdatepasswordviewState
     extends State<Createorupdatepasswordview> {
   CloudPassword? _password;
+  String? selectedType;
+
   late final CloudFirestoreService _passwordservice;
   late final TextEditingController _controller;
+  late final TextEditingController _type;
 
+  final items = <Widget>[Icon(Icons.save, size: 30)];
   @override
   void initState() {
     _passwordservice = CloudFirestoreService();
     _controller = TextEditingController();
+    _type = TextEditingController();
     super.initState();
   }
 
@@ -32,9 +40,11 @@ class _CreateorupdatepasswordviewState
     }
 
     final text = _controller.text;
+    final typepass = _type.text;
     await _passwordservice.updatepassword(
       doucmentId: password.doucmentId,
       text: text,
+      type: typepass,
     );
   }
 
@@ -48,10 +58,12 @@ class _CreateorupdatepasswordviewState
   void _savepasswordiftextnotempty() async {
     final password = _password;
     final text = _controller.text;
+    final typepass = _type.text;
     if (password != null && text.isNotEmpty) {
       await _passwordservice.updatepassword(
         doucmentId: password.doucmentId,
         text: text,
+        type: typepass,
       );
     }
   }
@@ -66,6 +78,7 @@ class _CreateorupdatepasswordviewState
     _savepasswordiftextnotempty();
     _deletepasswordifTextempty();
     _controller.dispose();
+    _type.dispose();
     super.dispose();
   }
 
@@ -96,27 +109,36 @@ class _CreateorupdatepasswordviewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         title: const Text('New Password:'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 235, 252, 0),
       ),
-      body: FutureBuilder<CloudPassword>(
+      body: FutureBuilder(
         future: createorgetexistpassword(context),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
+        builder: (context, asyncSnapshot) {
+          switch (asyncSnapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+
             case ConnectionState.done:
               _setupTextEditingcontollerlistner();
-              SizedBox(height: 10);
-              return TextField(
-                controller: _controller,
-                keyboardType: TextInputType.multiline,
-                maxLength: null,
-                textInputAction: TextInputAction.newline,
-                decoration: InputDecoration(hintText: 'type your password..'),
-              );
+              return UiCreatePassword(controller: _controller, ontype: _type);
+
             default:
-              return const CircularProgressIndicator();
+              return CircularProgressIndicator();
           }
+        },
+      ),
+
+      bottomNavigationBar: CurvedNavigationBar(
+        items: items,
+        backgroundColor: Colors.black,
+        height: 60,
+        onTap: (value) {
+          Navigator.of(
+            context,
+          ).pushNamedAndRemoveUntil(passwordsViewRoute, (context) => false);
         },
       ),
     );

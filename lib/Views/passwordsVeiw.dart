@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_passwords/Dailogs/logoutDailog.dart';
+
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/Views/password_list_view.dart';
 import 'package:my_passwords/auth/auth_service.dart';
+
 import 'package:my_passwords/cloud_Service/cloud_firestore_service.dart';
 import 'package:my_passwords/cloud_Service/cloud_password.dart';
 
@@ -27,15 +31,21 @@ class _PasswordViewState extends State<PasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amberAccent,
       appBar: AppBar(
-        title: const Text('Passwords page'),
-        backgroundColor: Colors.blue,
+        title: const Text(
+          'Passwords page',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.black,
         actions: [
           IconButton(
             onPressed: () async {
-              Navigator.of(context).pushNamed(createPassordView);
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(createPassordView, (context) => false);
             },
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add, color: Colors.red, size: 40),
           ),
           IconButton(
             onPressed: () async {
@@ -47,38 +57,59 @@ class _PasswordViewState extends State<PasswordView> {
                 ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);
               }
             },
-            icon: Icon(Icons.logout, size: 30),
+            icon: Icon(Icons.logout, size: 40, color: Colors.red),
           ),
         ],
       ),
-      body: StreamBuilder(
-        stream: _service.allpasswords(ownerUserId: userEmail),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              if (snapshot.hasData) {
-                final allpasswords = snapshot.data as Iterable<CloudPassword>;
-                return PasswordListView(
-                  passwords: allpasswords,
-                  onDelatepass: (password) async {
-                    await _service.deletePassword(
-                      doucmentId: password.doucmentId,
-                    );
-                  },
-                  ontap: (password) {
-                    Navigator.of(
-                      context,
-                    ).pushNamed(createPassordView, arguments: password);
-                  },
-                );
-              } else {
+      body: Container(
+        child: StreamBuilder(
+          stream: _service.allpasswords(ownerUserId: userEmail),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                if (snapshot.hasData) {
+                  final allpasswords = snapshot.data as Iterable<CloudPassword>;
+
+                  return PasswordListView(
+                    passwords: allpasswords,
+
+                    onDelatepass: (password) async {
+                      await _service.deletePassword(
+                        doucmentId: password.doucmentId,
+                      );
+                    },
+
+                    ontap: (password) {
+                      Navigator.of(
+                        context,
+                      ).pushNamed(createPassordView, arguments: password);
+                    },
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              default:
                 return const CircularProgressIndicator();
-              }
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
+            }
+          },
+        ),
+      ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.share,
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.red,
+        overlayColor: Colors.black,
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.delete, size: 20, color: Colors.blueAccent),
+            label: 'Delete All passwords',
+            backgroundColor: Colors.black,
+            onTap: () async {
+              await _service.deleteAllpasswords(ownerUserId: userEmail);
+            },
+          ),
+        ],
       ),
     );
   }
