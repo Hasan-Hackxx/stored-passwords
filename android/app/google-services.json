@@ -12,7 +12,20 @@
           "package_name": "com.example.my_passwords"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "748142520730-ojg50ujck5gjugrcfuanmtk9ahnjs4h0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.my_passwords",
+            "certificate_hash": "e5e6a3b3d5992c2d1fbeea48aef39fad370930ce"
+          }
+        },
+        {
+          "client_id": "748142520730-2mtgfe4465od8kmvfl4gd2dp22aoql44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB4OOr-WRSVSRh-rV4oZme9cdeIFkr8il0"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748142520730-2mtgfe4465od8kmvfl4gd2dp22aoql44.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "748142520730-kf5k1mfc99d613l8b4vbjsrqc63uv1hh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myPasswords"
+              }
+            }
+          ]
         }
       }
     }

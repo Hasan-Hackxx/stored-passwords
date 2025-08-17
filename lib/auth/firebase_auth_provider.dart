@@ -1,9 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_passwords/auth/auth_exceptions.dart';
 import 'package:my_passwords/auth/auth_provider.dart';
 import 'package:my_passwords/auth/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, FirebaseAuthException;
+    show
+        FirebaseAuth,
+        FirebaseAuthException,
+        GoogleAuthProvider,
+        UserCredential;
 import 'package:my_passwords/firebase_options.dart';
 
 class FirebaseAuthProvider implements AuthProvider {

@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:my_passwords/Dailogs/logoutDailog.dart';
 
 import 'package:my_passwords/Routes.dart';
 import 'package:my_passwords/Views/password_list_view.dart';
+import 'package:my_passwords/auth/Authgoogle.dart';
 import 'package:my_passwords/auth/auth_service.dart';
 
 import 'package:my_passwords/cloud_Service/cloud_firestore_service.dart';
@@ -52,6 +53,7 @@ class _PasswordViewState extends State<PasswordView> {
               final shouldlogout = await showlogoutDailog(context);
               if (shouldlogout) {
                 await FirebaseAuth.instance.signOut();
+                await Authgoogle().signoutfromgoogle();
                 Navigator.of(
                   context,
                 ).pushNamedAndRemoveUntil(loginViewRoute, (context) => false);

@@ -17,3 +17,7 @@ class InvalidEmailException implements Exception {}
 class GenericException implements Exception {}
 
 class UserNotLoggedInException implements Exception {}
+
+//google sign in Excpetion
+
+class CouldntsigninWithgoogle implements Exception {}

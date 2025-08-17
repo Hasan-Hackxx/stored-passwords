@@ -29,6 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
+    
+  
     sdk: flutter
     
 
@@ -42,14 +44,16 @@ dependencies:
   sqflite: ^2.4.2
   path_provider: ^2.1.5
   path: ^1.9.1
-  font_awesome_flutter: ^10.7.0
   
+
 
   bloc: ^9.0.0
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
   flutter_speed_dial: ^7.0.0
   curved_navigation_bar: ^1.0.6
+  font_awesome_flutter: ^10.9.0
+  google_sign_in: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -75,8 +79,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/icons8-google-logo-48.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

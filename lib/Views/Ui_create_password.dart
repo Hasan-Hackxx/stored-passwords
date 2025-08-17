@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UiCreatePassword extends StatefulWidget {
   final TextEditingController controller;
@@ -46,7 +45,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.blue,
-                        child: FaIcon(Icons.facebook),
+                        child: Icon(Icons.facebook),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -72,7 +71,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.pink,
-                        child: FaIcon(Icons.camera),
+                        child: Icon(Icons.camera),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -98,7 +97,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.lightBlue,
-                        child: FaIcon(Icons.alternate_email),
+                        child: Icon(Icons.alternate_email),
                       ),
                       SizedBox(height: 5),
                       Text(

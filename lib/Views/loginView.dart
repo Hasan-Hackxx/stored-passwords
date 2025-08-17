@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_passwords/Dailogs/errorDailog.dart';
 import 'package:my_passwords/Routes.dart';
+import 'package:my_passwords/auth/Authgoogle.dart';
 import 'package:my_passwords/auth/auth_exceptions.dart';
 import 'package:my_passwords/auth/auth_service.dart';
 
@@ -107,6 +109,21 @@ class _LoginviewState extends State<Loginview> {
               child: const Text(
                 'Forget password?',
                 style: TextStyle(fontSize: 20),
+              ),
+            ),
+            SizedBox(height: 320),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(backgroundColor: Colors.black),
+              onPressed: () async {
+                await Authgoogle().signinwithgoogle();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  passwordsViewRoute,
+                  (context) => false,
+                );
+              },
+              child: Text(
+                "Conitnue with google",
+                style: TextStyle(color: Colors.red, fontSize: 30),
               ),
             ),
           ],
