@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UiCreatePassword extends StatefulWidget {
   final TextEditingController controller;
@@ -25,10 +26,14 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'please choose your passwod type from Icons below',
-            style: TextStyle(fontSize: 20),
+            'please choose your passwod type from Icons below:',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.pinkAccent,
+              fontWeight: FontWeight.w900,
+            ),
           ),
-
+          SizedBox(height: 10),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -44,8 +49,8 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                     children: [
                       CircleAvatar(
                         radius: 20,
-                        backgroundColor: Colors.blue,
-                        child: Icon(Icons.facebook),
+                        backgroundColor: Colors.blueAccent,
+                        child: Icon(FontAwesomeIcons.facebook),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -53,6 +58,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -71,7 +77,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.pink,
-                        child: Icon(Icons.camera),
+                        child: Icon(FontAwesomeIcons.instagram),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -79,6 +85,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -97,7 +104,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.lightBlue,
-                        child: Icon(Icons.alternate_email),
+                        child: Icon(FontAwesomeIcons.twitter),
                       ),
                       SizedBox(height: 5),
                       Text(
@@ -105,6 +112,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -117,6 +125,7 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
           if (selectedType != null) ...[
             TextField(
               controller: widget.ontype,
+              style: TextStyle(color: Colors.white),
               readOnly: true,
               decoration: InputDecoration(
                 hintText: 'your passwod type',
@@ -127,9 +136,13 @@ class _UiCreatePasswordState extends State<UiCreatePassword> {
             SizedBox(height: 20),
             TextField(
               controller: widget.controller,
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'enter your password..',
-                hintStyle: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+                hintText: 'Enter your password',
+
+                hintStyle: TextStyle(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                ),
                 border: OutlineInputBorder(),
               ),
             ),

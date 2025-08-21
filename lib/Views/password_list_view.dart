@@ -29,6 +29,10 @@ class PasswordListView extends StatelessWidget {
         return ListTile(
           title: Text(
             ' Password Type: ${password.type} \n Password : ${password.text}',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
+            ),
 
             maxLines: 5,
             softWrap: true,
@@ -46,7 +50,7 @@ class PasswordListView extends StatelessWidget {
                 onDelatepass(password);
               }
             },
-            icon: Icon(Icons.delete),
+            icon: Icon(Icons.delete, color: Colors.black87),
           ),
         );
       },

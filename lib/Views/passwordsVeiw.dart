@@ -32,11 +32,11 @@ class _PasswordViewState extends State<PasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: const Color.fromARGB(255, 253, 39, 110),
       appBar: AppBar(
         title: const Text(
-          'Passwords page',
-          style: TextStyle(color: Colors.white),
+          'Passwords page:',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.black,
         actions: [
@@ -100,12 +100,13 @@ class _PasswordViewState extends State<PasswordView> {
       floatingActionButton: SpeedDial(
         icon: Icons.share,
         backgroundColor: Colors.black,
-        foregroundColor: Colors.red,
+        foregroundColor: const Color.fromARGB(255, 255, 0, 0),
         overlayColor: Colors.black,
         children: [
           SpeedDialChild(
             child: Icon(Icons.delete, size: 20, color: Colors.blueAccent),
             label: 'Delete All passwords',
+            labelStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
             backgroundColor: Colors.black,
             onTap: () async {
               await _service.deleteAllpasswords(ownerUserId: userEmail);

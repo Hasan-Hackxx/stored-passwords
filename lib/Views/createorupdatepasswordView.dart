@@ -24,7 +24,9 @@ class _CreateorupdatepasswordviewState
   late final TextEditingController _controller;
   late final TextEditingController _type;
 
-  final items = <Widget>[Icon(Icons.save, size: 30)];
+  final items = <Widget>[
+    Icon(Icons.save, size: 30, color: const Color.fromARGB(255, 253, 49, 117)),
+  ];
   @override
   void initState() {
     _passwordservice = CloudFirestoreService();
@@ -109,9 +111,12 @@ class _CreateorupdatepasswordviewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('New Password:'),
+        title: const Text(
+          'New Password:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color.fromARGB(255, 235, 252, 0),
       ),
       body: FutureBuilder(
@@ -134,6 +139,9 @@ class _CreateorupdatepasswordviewState
       bottomNavigationBar: CurvedNavigationBar(
         items: items,
         backgroundColor: Colors.black,
+        color: const Color.fromARGB(255, 235, 252, 0),
+        buttonBackgroundColor: const Color.fromARGB(255, 12, 12, 12),
+
         height: 60,
         onTap: (value) {
           Navigator.of(
